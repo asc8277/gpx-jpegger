@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>gpx-jpegger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.1/gpx.js"></script>
+    <style type="text/css">
+      body, html, .gpx, .map { 
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .info {
+        z-index: 1000;
+        position: absolute;
+        bottom: 0px;
+        background: #f0f0f0;
+        padding: 0.5em;
+        font-family: Monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper" class="gpx" data-gpx-source="temp.gpx" data-map-target="map">
+      <div class="map" id="map"></div>
+      <div class="info">
+        <span id="dist"></span> m, <span id="dur"></span>
+        <br>
+        +<span id="elev+"></span>m -<span id="elev-"></span>m
+      </footer>
+    </section>
+
+    <script type="application/javascript">
+      const elt = document.getElementById('wrapper');
+      const url = elt.getAttribute('data-gpx-source');
+      const mapid = elt.getAttribute('data-map-target');
+
+      const map = L.map(mapid, { zoomControl: false });
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>'
+      }).addTo(map);
+
+      new L.GPX(url, {
+        async: true,
+        marker_options: {
+          startIconUrl: 'pin-icon-start.png',
+          endIconUrl:   'pin-icon-end.png',
+          shadowUrl:    'pin-shadow.png',
+        },
+      })
+      .on('loaded', (e) => {
+        const gpx = e.target;
+        map.fitBounds(gpx.getBounds());
+
+        document.getElementById('dist').textContent = (gpx.get_distance() / 1000).toFixed(3);
+        document.getElementById('dur').textContent = gpx.get_duration_string_iso(gpx.get_moving_time());
+        document.getElementById('elev+').textContent = gpx.get_elevation_gain().toFixed(0);
+        document.getElementById('elev-').textContent = gpx.get_elevation_loss().toFixed(0);
+      }).addTo(map);
+    </script>
+  </body>
+</html>
