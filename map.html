@@ -3,9 +3,11 @@
 <html>
   <head>
     <title>gpx-jpegger</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.1/gpx.js"></script>
+    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css" />
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="node_modules/leaflet-gpx/gpx.js"></script>
+    <script src="node_modules/leaflet-arrowheads/src/leaflet-arrowheads.js"></script>
+    <script src="node_modules/leaflet-geometryutil/src/leaflet.geometryutil.js"></script>
     <style type="text/css">
       body, html, .gpx, .map { 
         width: 100%;
@@ -44,18 +46,28 @@
 
       new L.GPX(url, {
         async: true,
+        gpx_options: {
+          parseElements: ['track']
+        },
         marker_options: {
-          startIconUrl: 'pin-icon-start.png',
-          endIconUrl: 'pin-icon-end.png',
-          shadowUrl: 'pin-shadow.png'
+          startIconUrl: '',
+          endIconUrl: '',
+          shadowUrl: ''
+        },
+        polyline_options: {
+          color: '#5555FF',
+          weight: 3
         }
       })
+        .on('addline', (e) => {
+          e.line.arrowheads({ frequency: '500m', size: '10px', color: '#3333FF', weight: 2 });
+        })
         .on('loaded', (e) => {
           const gpx = e.target;
           map.fitBounds(gpx.getBounds());
 
           document.getElementById('dist').textContent = (gpx.get_distance() / 1000).toFixed(3);
-          document.getElementById('dur').textContent = gpx.get_duration_string_iso(gpx.get_moving_time());
+          document.getElementById('dur').textContent = gpx.get_duration_string_iso(gpx.get_total_time());
           document.getElementById('elev+').textContent = gpx.get_elevation_gain().toFixed(0);
           document.getElementById('elev-').textContent = gpx.get_elevation_loss().toFixed(0);
         }).addTo(map);
