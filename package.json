@@ -1,7 +1,6 @@
 {
   "private": "true",
   "dependencies": {
-    "eslint-plugin-html": "^6.1.2",
     "express": "^4.17.1",
     "get-port": "^5.1.1",
     "http-terminator": "^3.0.0",
@@ -13,6 +12,7 @@
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-html": "^6.1.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0"
   },

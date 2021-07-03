@@ -15,5 +15,13 @@
     ],
     "rules": {
         "semi": ["error", "always"]
+    },
+    "overrides": [
+        {
+            "files": ["*.js", "*.html"]
+        }
+    ],
+    "globals": {
+        "L": "readonly"
     }
 }
