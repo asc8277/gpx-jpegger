@@ -15,8 +15,16 @@ const localdir = path.dirname(fileURLToPath(import.meta.url));
 const tempfile = path.resolve(localdir, 'temp.gpx');
 
 (async () => {
+  console.log('gpx-jpegger: start');
+
   const dir = process.argv[2];
   const files = await fs.readdir(dir);
+  const gpxFiles = files.filter(f => f.slice(-4) === '.gpx');
+
+  if (gpxFiles.length === 0) {
+    console.log('nothing to do');
+    return;
+  }
 
   const port = await getPort();
   const url = `http://localhost:${port}/map.html`;
@@ -37,10 +45,7 @@ const tempfile = path.resolve(localdir, 'temp.gpx');
     .setChromeOptions(options)
     .build();
 
-  for (const file of files) {
-    if (file.slice(-4) !== '.gpx') {
-      continue;
-    }
+  for (const file of gpxFiles) {
     console.log(file);
 
     try { await fs.unlink(tempfile); } catch (e) { /* don't care */ }
@@ -60,5 +65,6 @@ const tempfile = path.resolve(localdir, 'temp.gpx');
     httpTerminator.terminate(),
     driver.quit()
   ]);
-  console.log('complete');
+
+  console.log('gpx-jpegger: complete');
 })();
