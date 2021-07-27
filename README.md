@@ -1,8 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 # gpx-jpegger
-Little utility to print gpx tracks onto a map saved as a jpeg files. It will process all gpx files
-in a given directory and saves the generated jpegs in the same directory.
+JavaScript CLI tool to print gpx tracks onto a map saved as a jpeg files.
+It will process all gpx files in a given directory and saves the generated jpegs in the same directory.
 
 Needs chromium (or chrome) and chromedriver to be installed and available in PATH.
 
