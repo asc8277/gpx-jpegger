@@ -11,6 +11,15 @@ import { fileURLToPath } from 'url';
 // chromium (or chrome) and chromedriver need to be installed
 // e.g. apt install chromium-browser chromium-chromedriver
 
+process.on('SIGINT', () => process.exit());
+
+const version = process.env.GPX_JPEGGER_VERSION || 'dev';
+console.log(`gpx-jpegger build ${version}`);
+
+if (process.argv[2] === '--version') {
+  process.exit(0);
+}
+
 const localdir = path.dirname(fileURLToPath(import.meta.url));
 const tempfile = path.resolve(localdir, 'temp.gpx');
 

@@ -4,17 +4,19 @@
 JavaScript CLI tool to print gpx tracks onto a map saved as a jpeg files.
 It will process all gpx files in a given directory and saves the generated jpegs in the same directory.
 
+## Usage (docker)
+
+```
+docker pull ghcr.io/asc8277/gpx-jpegger:latest
+docker run -v /path/to/local/persistence:/gpx-jpegger ghcr.io/asc8277/gpx-jpegger:latest
+```
+
+## Usage (node)
+
 Needs chromium (or chrome) and chromedriver to be installed and available in PATH.
 
-## Usage
-
-install dependencies
 ```
 npm ci
-```
-
-run
-```
 node map.js yourpath
 ```
 
