@@ -1,6 +1,6 @@
 FROM node
 
-RUN apt-get update && apt-get install -y chromium-browser chromium-chromedriver
+RUN apt-get update && apt-get install -y chromium chromedriver
 
 WORKDIR /app
 
