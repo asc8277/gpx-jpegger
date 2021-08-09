@@ -48,6 +48,7 @@ const tempfile = path.resolve(localdir, 'temp.gpx');
   options.addArguments('--disable-gpu');
   options.addArguments('--window-size=1920,1080');
   options.addArguments('--force-device-scale-factor=2');
+  options.addArguments('--remote-debugging-port=9222');
 
   const driver = await new Webdriver.Builder()
     .forBrowser('chrome')
