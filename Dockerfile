@@ -1,8 +1,9 @@
-FROM node
+FROM node:alpine
 
-RUN apt-get update && apt-get install -y chromium chromium-driver
+RUN apk add --no-cache chromium chromium-chromedriver
 
 WORKDIR /app
+RUN chmod a+rwx .
 
 COPY ["package.json", "package-lock.json", "./"]
 

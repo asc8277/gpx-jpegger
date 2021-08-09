@@ -8,7 +8,10 @@ It will process all gpx files in a given directory and saves the generated jpegs
 
 ```
 docker pull ghcr.io/asc8277/gpx-jpegger:latest
-docker run -v /path/to/local/persistence:/gpx-jpegger ghcr.io/asc8277/gpx-jpegger:latest
+docker run \
+  -u $(id -u):$(id -g) \
+  -v /path/to/process:/gpx-jpegger \
+  ghcr.io/asc8277/gpx-jpegger:latest
 ```
 
 ## Usage (node)

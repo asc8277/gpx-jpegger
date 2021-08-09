@@ -47,8 +47,10 @@ const tempfile = path.resolve(localdir, 'temp.gpx');
   options.addArguments('--hide-scrollbars');
   options.addArguments('--disable-gpu');
   options.addArguments('--window-size=1920,1080');
-  options.addArguments('--force-device-scale-factor=2');
-  options.addArguments('--remote-debugging-port=9222');
+  options.addArguments('--force-device-scale-factor=1');
+  options.addArguments('--remote-debugging-port=9222'); // docker
+  options.addArguments('--no-sandbox'); // docker
+  options.addArguments('--disable-dev-shm-usage'); // docker
 
   const driver = await new Webdriver.Builder()
     .forBrowser('chrome')
@@ -62,7 +64,7 @@ const tempfile = path.resolve(localdir, 'temp.gpx');
 
     await fs.copyFile(path.resolve(dir, file), tempfile);
     await driver.get(url);
-    await new Promise((resolve) => { setTimeout(resolve, 5000); });
+    await new Promise((resolve) => { setTimeout(resolve, 10000); });
     const screenshot = await driver.takeScreenshot();
     const png = await Jimp.read(Buffer.from(screenshot, 'base64'));
     await png.quality(90).writeAsync(`${path.resolve(dir, file).slice(0, -4)}.jpg`);
