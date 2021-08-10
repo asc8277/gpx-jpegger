@@ -20,7 +20,7 @@ Needs chromium (or chrome) and chromedriver to be installed and available in PAT
 
 ```
 npm ci
-node map.js yourpath
+node map.js /path/to/process
 ```
 
 ## License
