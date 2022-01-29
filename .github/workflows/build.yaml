@@ -43,14 +43,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/asc8277/gpx-jpegger:latest
-      - name: delete old releases
-        uses: dev-drprasad/delete-older-releases@v0.2.0
-        with:
-          keep_latest: 0
-          delete_tags: true
-          delete_tag_pattern: latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: create release
         uses: marvinpinto/action-automatic-releases@latest
         with:
